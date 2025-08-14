@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sol's RNG — Luck & Aura Probability Calculator (Aug 2025)</title>
+  <style>
+    :root{--bg:#0b0d10;--panel:#11151a;--panel2:#0e1217;--text:#e6eef7;--muted:#9fb0c3;--acc:#79c0ff;--good:#a7f3d0;--warn:#fde68a;--bad:#fca5a5;--chip:#1a222b}
+    *{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#0a0d12,#0b0d10);color:var(--text);font:14px/1.5 system-ui,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
+    .wrap{max-width:1100px;margin:32px auto;padding:0 16px}
+    .header{display:flex;flex-wrap:wrap;gap:12px;align-items:baseline;justify-content:space-between}
+    h1{font-size:20px;margin:0}
+    .subtitle{color:var(--muted);font-size:12px}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+    .card{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid #1e2630;border-radius:16px;padding:14px;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+    .span-4{grid-column:span 4}.span-6{grid-column:span 6}.span-8{grid-column:span 8}.span-12{grid-column:span 12}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    label{display:flex;align-items:center;gap:8px;background:var(--chip);border:1px solid #273141;border-radius:12px;padding:8px 10px;cursor:pointer}
+    input[type="number"], select{background:#0c1117;color:var(--text);border:1px solid #273141;border-radius:10px;padding:8px 10px;min-width:100px}
+    input[type="checkbox"]{width:18px;height:18px}
+    .pill{display:inline-flex;gap:8px;align-items:center;background:#0e141b;border:1px solid #273141;border-radius:999px;padding:6px 10px}
+    .k{color:var(--muted)}
+    .big{font-size:28px;font-weight:700}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
+    .hint{color:var(--muted);font-size:12px}
+    .btn{background:var(--acc);color:#06121c;border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer}
+    details{border:1px dashed #2a3647;border-radius:12px;padding:10px}
+    summary{cursor:pointer}
+    a{color:var(--acc)}
+    .badge{background:#122233;border:1px solid #27425f;border-radius:8px;padding:2px 6px;color:var(--acc);font-size:11px}
+    @media (max-width:960px){.span-4,.span-6,.span-8,.span-12{grid-column:span 12}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <h1>Sol's RNG — Luck & Aura Probability Calculator <span class="badge">Aug 2025</span></h1>
+	  <div class="subtitle">Yelveto's (@FLAMEJACKER2) Luck Calculator</div>
+      <div class="subtitle">Implements the wiki's current luck formula: <span class="mono">TotalLuck = ((1 + Basic) × Bonus + Special) × VIP</span></div>
+    </div>
+
+    <div class="grid" id="app">
+      <div class="card span-8">
+        <h3 style="margin:0 0 10px">1) Buffs & Gear</h3>
+        <div class="row" style="margin-bottom:8px">
+          <span class="k">VIP:</span>
+          <label><input type="radio" name="vip" value="1" checked>None</label>
+          <label><input type="radio" name="vip" value="1.2">VIP (x1.2)</label>
+          <label><input type="radio" name="vip" value="1.3">VIP+ (x1.3)</label>
+        </div>
+
+		<div class="row" style="margin-bottom:8px">
+		  <span class="k">Left-hand gear (Bonus Roll):</span>
+		  <select id="bonusRoll">
+			<option value="1">None</option>
+			<option value="1.3">Flesh Device ×1.3</option>
+			<option value="2.5">Darkshader ×2.5</option>
+			<option value="3">Blessed Tide Gauntlet ×3</option>
+			<option value="4">X-Mas Champion ×4</option>
+			<option value="5">Darkshader ×5</option>
+			<option value="6">Gravitational Device ×6</option>
+			<option value="6">Present Giver ×6</option>
+		  </select>
+		  <span class="hint">Bonus only multiplies <em>Basic</em> luck, not Special.</span>
+		</div>
+
+		<div class="row" style="margin-bottom:8px">
+		  <span class="k">Right-hand gear (Basic luck):</span>
+		  <select id="rightGear">
+			<option value="0">None</option>
+			<option value="0.25">Luck Glove (+25%)</option>
+			<option value="0.5">Solar Device (+50%)</option>
+			<option value="0.5">Eclipse Device (+50%)</option>
+			<option value="0.5">Tide Gauntlet (+50%)</option>
+			<option value="0.77">Jackpot Gauntlet (+77%)</option>
+			<option value="1.0">Exo Gauntlet (+100%)</option>
+			<option value="1.15">Windstorm Device (+115%)</option>
+			<option value="1.5">Subzero Device (+150%)</option>
+			<option value="2.5">Galactic Device (+250%)</option>
+			<option value="2.9">Volcanic Device (+290%)</option>
+			<option value="3">Snow Rider (+300%)</option>
+			<option value="3.4">Exoflex Device (+340%)</option>
+			<option value="3.95">Hologrammer (+395%)</option>
+			<option value="4.55">Ragnaröker (+455%)</option>
+			<option value="5">Polar Light Core Device (+500%)</option>
+			<option value="7">Starshaper (+700%)</option>
+			<option value="8">Pump Punch (+800%)</option>
+			<option value="8.5">Neuralyzer (+850%)</option>
+		  </select>
+		  <span class="hint">These add to Basic luck.</span>
+		</div>
+
+        <div class="row" style="margin:10px 0 6px"><span class="k">Basic luck effects</span></div>
+        <div class="row">
+          <label><input type="checkbox" class="basic" value="0.25"> Lucky Potion (+25%)</label>
+          <label><input type="checkbox" class="basic" value="1.0"> Rainbow Ice (+100%)</label>
+          <label><input type="checkbox" class="basic" value="0.5"> Fortune I (+50%)</label>
+          <label><input type="checkbox" class="basic" value="0.75"> Fortune II (+75%)</label>
+          <label><input type="checkbox" class="basic" value="1.0"> Fortune III (+100%)</label>
+          <label><input type="checkbox" class="basic" value="0.77"> Lucky Penny (+77%)</label>
+          <label><input type="checkbox" class="basic" value="0.3"> Basic Blessing (+30%)</label>
+          <label><input type="checkbox" class="basic" value="1.5"> The Chosen (SP I) (+150%)</label>
+          <label><input type="checkbox" class="basic" value="2.5"> GODLIKE (SP II) (+250%)</label>
+          <label><input type="checkbox" class="basic" value="0.2"> Stella Candle (near 1) (+20%)</label>
+          <label><input type="checkbox" class="basic" value="0.2"> Stella Candle (near 2) (+20%)</label>
+          <label><input type="checkbox" class="basic" value="0.2"> Stella Candle (near 3) (+20%)</label>
+          <label><input type="checkbox" class="basic" value="0.4"> Clover (+40%)</label>
+          <label><input type="checkbox" class="basic" value="0.5"> Portable Device area (+50%)</label>
+          <label><input type="checkbox" class="basic" value="1.2"> Tip's Blessing (est. +120%)</label>
+          <label><input type="checkbox" class="basic" value="0.2"> Incense (+20%)</label>
+          <label><input type="checkbox" class="basic" value="1.5"> Santa's Blessing (+150%)</label>
+          <label><input type="checkbox" class="basic" value="1.2"> Brilliant (+120%)</label>
+          <label><input type="checkbox" class="basic" value="1.5"> Undying (+150%)</label>
+          <label><input type="checkbox" class="basic" value="2"> Lord of the Sky (+200%)</label>
+          <label><input type="checkbox" class="basic" value="-0.5"> Lord of the Sea (-50%)</label>
+          <label><input type="checkbox" class="basic" value="3"> Lord of the Hell (+300%)</label>
+          <label><input type="checkbox" class="basic" value="1"> Warrior (+100%)</label>
+          <label><input type="checkbox" class="basic" value="1.2"> Torchbearer's Blessing (+120%)</label>
+        </div>
+
+        <details style="margin-top:8px"><summary>Biome resonance micro-buffs</summary>
+          <div class="row" style="margin-top:8px">
+            <label><input type="checkbox" class="basic" value="0.05"> Resonance: Snowy (+5%)</label>
+            <label><input type="checkbox" class="basic" value="0.05"> Resonance: Windy (+5%)</label>
+            <label><input type="checkbox" class="basic" value="0.07"> Resonance: Rainy (+7%)</label>
+            <label><input type="checkbox" class="basic" value="0.12"> Resonance: Night (+12%)</label>
+            <label><input type="checkbox" class="basic" value="0.25"> Resonance: Starfall (+25%)</label>
+          </div>
+        </details>
+
+        <details style="margin-top:8px"><summary>Event & Achievement buffs</summary>
+          <div class="row" style="margin-top:8px">
+            <label><input type="checkbox" class="basic" value="1"> Christmas Blessing (+100%)</label>
+            <label><input type="checkbox" class="basic" value="0.5"> Easter Blessing (+50%)</label>
+            <label><input type="checkbox" class="basic" value="0.3"> Coolness (+30%)</label>
+            <label><input type="checkbox" class="basic" value="0.5"> Winter Blessing (+50%)</label>
+            <label><input type="checkbox" class="basic" value="1"> Winter Blessing+ (+100%)</label>
+            <label><input type="checkbox" class="basic" value="1.5"> Trick or Treat (+150%)</label>
+            <label><input type="checkbox" class="basic" value="0.1"> Lime's Thanks (+10%)</label>
+            <label><input type="checkbox" class="basic" value="0.1"> Skilled! (+10%)</label>
+            <label><input type="checkbox" class="basic" value="0.2"> Expert! (+20%)</label>
+            <label><input type="checkbox" class="basic" value="0.3"> Master! (+30%)</label>
+            <label><input type="checkbox" class="basic" value="0.4"> Grandmaster! (+40%)</label>
+          </div>
+        </details>
+
+        <div class="row" style="margin:12px 0 6px"><span class="k">Special luck effects</span> <span class="hint">(Added outside Bonus, then × VIP)</span></div>
+        <div class="row">
+          <label><input type="checkbox" class="special" value="50000"> Bound Potion (+50,000)</label>
+          <label><input type="checkbox" class="special" value="15000"> Heavenly I (+15,000)</label>
+          <label><input type="checkbox" class="special" value="150000"> Heavenly II (+150,000)</label>
+          <label><input type="checkbox" class="special" value="400000"> Godlike (+400,000)</label>
+          <label><input type="checkbox" class="special" value="600000"> Oblivion (+600,000)</label>
+          <label><input type="checkbox" class="special" value="700000"> Pump King's Blood (+700,000)</label>
+          <label><input type="checkbox" class="special" value="50000"> Wishing Star (+50,000)</label>
+          <label><input type="checkbox" class="special" value="300000"> Shattered Heart (+300,000)</label>
+          <label><input type="checkbox" class="special" value="5000"> First Blessing (+5,000)</label>
+        </div>
+
+        <details style="margin-top:8px"><summary>Server/other situational effects</summary>
+          <div class="row" style="margin-top:8px">
+            <label><input type="checkbox" class="basic" value="0.5"> We're Sorry (+50% avg)</label>
+            <label><input type="checkbox" class="basic" value="0.1"> Event small boost (+10%)</label>
+            <label><input type="checkbox" class="basic" value="0.03"> Friend Luck (+3% per friend)</label>
+            <label><input type="checkbox" class="basic" value="0.05"> Friend Luck+ (+5% per friend)</label>
+            <label>Custom Basic +<input type="number" id="customBasic" value="0" min="0" step="0.01" class="mono" style="width:90px"> (as a decimal)</label>
+            <label>Custom Special +<input type="number" id="customSpecial" value="0" min="0" step="100" class="mono" style="width:110px"> (flat)</label>
+          </div>
+        </details>
+      </div>
+
+      <div class="card span-4">
+        <h3 style="margin:0 0 10px">2) Aura Target & Rolls</h3>
+        <div class="row" style="margin-bottom:8px">
+          <span class="k">Preset:</span>
+          <select id="preset">
+            <option value="">– choose –</option>
+            <option value="6000000">Twilight (1 in 6,000,000)</option>
+            <option value="600000">Twilight (Night native 1 in 600,000)</option>
+            <option value="2500000">Virtual (1 in 2,500,000)</option>
+            <option value="520000000">Dreammetric (display 1 in 520,000,000)</option>
+			<option value="1073741824">Pixelation (display 1 in 1,073,741,824)</option>
+			<option value="2500000000">Equinox (display 1 in 2,500,000,000)</option>
+          </select>
+        </div>
+        <div class="row" style="margin-bottom:8px">
+          <label>Base rarity: 1 in <input id="baseR" type="number" min="1" value="2500000" class="mono" style="width:140px"></label>
+        </div>
+        <div class="row" style="margin-bottom:8px">
+          <label>Planned rolls: <input id="rolls" type="number" min="1" value="10000" class="mono" style="width:120px"></label>
+        </div>
+        <div class="row">
+          <button class="btn" id="calc">Calculate</button>
+        </div>
+        <hr style="border-color:#1f2937;margin:12px 0">
+        <div id="out">
+          <div class="pill"><span class="k">Total Luck</span> <span class="big mono" id="totalLuck">1.00</span></div>
+          <div class="pill" style="margin-top:8px"><span class="k">Effective rarity</span> <span class="big mono" id="effR">1 in –</span></div>
+          <div class="pill" style="margin-top:8px"><span class="k">Chance this session</span> <span class="big mono" id="chance">–</span></div>
+          <div class="hint" style="margin-top:6px">Formula: Effective 1-in = Base / TotalLuck. Session chance = 1 − (1 − 1/Eff)^rolls.</div>
+        </div>
+      </div>
+
+      <div class="card span-12">
+        <h3 style="margin:0 0 8px">What counts as <em>Basic</em> vs <em>Special</em> luck?</h3>
+        <ul style="margin:0 0 8px 18px;line-height:1.7">
+          <li><strong>Basic</strong> (additive percentages): gear % (right-hand), Lucky/Fortune potions, Lucky Penny, strange potions' <em>luck%</em>, Stella candles, Tip's Blessing, Basic Blessing, area tools (Portable Device, Incense), tiny Resonance boosts, many event/server buffs.</li>
+          <li><strong>Bonus Roll</strong> (multiplier): from left-hand gear like Gravitational (×6), Blessed Tide (×3), or Flesh (×2). <em>Only multiplies Basic luck.</em></li>
+          <li><strong>Special</strong> (flat luck): Bound (+50k), Heavenly (+15k/+150k), Godlike (+400k), Oblivion (+600k), Pump King's Blood (+700k). Added outside Bonus, then multiplied by VIP.</li>
+          <li><strong>VIP</strong>: multiplies the final result (VIP ×1.2, VIP+ ×1.3).</li>
+        </ul>
+        <div class="hint">Values are from the Sol's RNG wiki as of Aug 2025. When in doubt, use the custom fields to tweak.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  const $ = (s)=>document.querySelector(s);
+  const $$ = (s)=>Array.from(document.querySelectorAll(s));
+
+  const fmt = new Intl.NumberFormat('en-US');
+  const fmtPct = new Intl.NumberFormat('en-US',{style:'percent',maximumFractionDigits:4});
+
+  function getVIP(){ return parseFloat(document.querySelector('input[name="vip"]:checked').value); }
+  function getBonus(){ return parseFloat($('#bonusRoll').value); }
+
+  function sumBasic(){
+    let s = 0;
+    //right-hand gear adds to basic luck
+    s += parseFloat($('#rightGear').value);
+    $$('.basic:checked').forEach(el=> s += parseFloat(el.value));
+    s += parseFloat($('#customBasic').value||0);
+    return s; //as decimal, e.g. 2.5 = +250%
+  }
+
+  function sumSpecial(){
+    let s = 0;
+    $$('.special:checked').forEach(el=> s += parseFloat(el.value));
+    s += parseFloat($('#customSpecial').value||0);
+    return s; //flat numbers
+  }
+
+  function compute(){
+    const VIP = getVIP();
+    const Bonus = getBonus();
+    const Basic = sumBasic();
+    const Special = sumSpecial();
+    const totalLuck = ((1 + Basic) * Bonus + Special) * VIP;
+
+    const base = Math.max(1, parseFloat($('#baseR').value||1));
+    const eff = base / Math.max(1, totalLuck);
+
+    const rolls = Math.max(1, parseInt($('#rolls').value||1,10));
+    const pSingle = 1/eff;
+    const pSession = 1 - Math.pow(1 - pSingle, rolls);
+
+    $('#totalLuck').textContent = totalLuck.toFixed(totalLuck>=10000?0:(totalLuck>=1000?1:2));
+    $('#effR').textContent = `1 in ${fmt.format(Math.max(1, Math.floor(eff)))}`;
+    $('#chance').textContent = `${fmtPct.format(pSession)} (per ${fmt.format(rolls)} rolls)`;
+
+    return {totalLuck, eff, pSession};
+  }
+
+  //Hook up UI
+  $('#calc').addEventListener('click', compute);
+  $('#preset').addEventListener('change', e=>{ if(e.target.value){ $('#baseR').value = e.target.value; compute(); }});
+  ['vip','bonusRoll','rightGear'].forEach(name=>{
+    (name==='vip'?$$(`input[name="vip"]`):[$('#'+name)]).forEach(el=> el.addEventListener('change', compute));
+  });
+  $$('.basic, .special').forEach(el=> el.addEventListener('change', compute));
+  $('#customBasic').addEventListener('input', compute);
+  $('#customSpecial').addEventListener('input', compute);
+  $('#baseR').addEventListener('input', compute);
+  $('#rolls').addEventListener('input', compute);
+  $('#rpm').addEventListener('input', compute);
+
+  //initial calc
+  compute();
+  </script>
+</body>
+</html>
