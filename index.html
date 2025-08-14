@@ -52,19 +52,19 @@
         </div>
 
 		<div class="row" style="margin-bottom:8px">
-		  <span class="k">Left-hand gear:</span>
-		  <select id="leftGear">
-			<option value="none">None</option>
-			<option value="flesh">Flesh Device (×1.3 Bonus Roll)</option>
-			<option value="darkshader25">Darkshader (×2.5 Bonus Roll)</option>
-			<option value="blessed">Blessed Tide Gauntlet (×3 Bonus Roll)</option>
-			<option value="xmas">X-Mas Champion (×4 Bonus Roll)</option>
-			<option value="darkshader5">Darkshader (×5 Bonus Roll)</option>
-			<option value="gravitational">Gravitational Device (×6 Bonus Roll)</option>
-			<option value="present">Present Giver (×6 Bonus Roll)</option>
-			<option value="polar">Polar Light Core Device (+500% Basic Luck)</option>
+		  <span class="k">Left-hand gear (Bonus Roll):</span>
+		  <select id="bonusRoll">
+			<option value="1">None</option>
+			<option value="1.3">Flesh Device ×1.3</option>
+			<option value="2.5">Darkshader ×2.5</option>
+			<option value="3">Blessed Tide Gauntlet ×3</option>
+			<option value="4">X-Mas Champion ×4</option>
+			<option value="5">Darkshader ×5</option>
+			<option value="6">Gravitational Device ×6</option>
+			<option value="6">Present Giver ×6</option>
+			<option value="5">Polar Light Core Device (+500%)</option>
 		  </select>
-		  <span class="hint">Bonus Roll multiplies <em>Basic</em> luck only. Polar Light Core adds to Basic luck instead.</span>
+		  <span class="hint">Bonus only multiplies <em>Basic</em> luck, not Special. Put None for non-bonus rolls.</span>
 		</div>
 
 		<div class="row" style="margin-bottom:8px">
@@ -222,35 +222,19 @@
 
   <script>
   const $ = (s)=>document.querySelector(s);
-  const $ = (s)=>Array.from(document.querySelectorals(s));
+  const $$ = (s)=>Array.from(document.querySelectorAll(s));
 
   const fmt = new Intl.NumberFormat('en-US');
   const fmtPct = new Intl.NumberFormat('en-US',{style:'percent',maximumFractionDigits:4});
 
   function getVIP(){ return parseFloat(document.querySelector('input[name="vip"]:checked').value); }
-
-  function getLeftGearEffects(){
-    const leftGear = $('#leftGear').value;
-    switch(leftGear){
-      case 'flesh': return {bonus: 1.3, basic: 0};
-      case 'darkshader25': return {bonus: 2.5, basic: 0};
-      case 'blessed': return {bonus: 3, basic: 0};
-      case 'xmas': return {bonus: 4, basic: 0};
-      case 'darkshader5': return {bonus: 5, basic: 0};
-      case 'gravitational': return {bonus: 6, basic: 0};
-      case 'present': return {bonus: 6, basic: 0};
-      case 'polar': return {bonus: 1, basic: 5}; // +500% = 5.0 as decimal
-      default: return {bonus: 1, basic: 0};
-    }
-  }
+  function getBonus(){ return parseFloat($('#bonusRoll').value); }
 
   function sumBasic(){
     let s = 0;
     //right-hand gear adds to basic luck
     s += parseFloat($('#rightGear').value);
-    //left-hand gear basic luck (Polar Light Core)
-    s += getLeftGearEffects().basic;
-    $('.basic:checked').forEach(el=> s += parseFloat(el.value));
+    $$('.basic:checked').forEach(el=> s += parseFloat(el.value));
     s += parseFloat($('#customBasic').value||0);
     return s; //as decimal, e.g. 2.5 = +250%
   }
@@ -264,8 +248,7 @@
 
   function compute(){
     const VIP = getVIP();
-    const leftEffects = getLeftGearEffects();
-    const Bonus = leftEffects.bonus;
+    const Bonus = getBonus();
     const Basic = sumBasic();
     const Special = sumSpecial();
     const totalLuck = ((1 + Basic) * Bonus + Special) * VIP;
@@ -287,8 +270,8 @@
   //Hook up UI
   $('#calc').addEventListener('click', compute);
   $('#preset').addEventListener('change', e=>{ if(e.target.value){ $('#baseR').value = e.target.value; compute(); }});
-  ['vip','leftGear','rightGear'].forEach(name=>{
-    (name==='vip'?$(`input[name="vip"]`):[$('#'+name)]).forEach(el=> el.addEventListener('change', compute));
+  ['vip','bonusRoll','rightGear'].forEach(name=>{
+    (name==='vip'?$$(`input[name="vip"]`):[$('#'+name)]).forEach(el=> el.addEventListener('change', compute));
   });
   $$('.basic, .special').forEach(el=> el.addEventListener('change', compute));
   $('#customBasic').addEventListener('input', compute);
