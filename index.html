@@ -185,6 +185,7 @@ Last Updated: 8/14/2025
             <label><input type="checkbox" class="basic" value="0.05"> Friend Luck+ (+5% per friend)</label>
             <label>Custom Basic +<input type="number" id="customBasic" value="0" min="0" step="0.01" class="mono" style="width:90px"> (as a decimal)</label>
             <label>Custom Special +<input type="number" id="customSpecial" value="0" min="0" step="100" class="mono" style="width:110px"> (flat)</label>
+            <label>Custom Multiplier ×<input type="number" id="customMultiplier" value="1" min="1" step="0.1" class="mono" style="width:90px"> (VIP-style)</label>
           </div>
         </details>
       </div>
@@ -242,7 +243,11 @@ Last Updated: 8/14/2025
   const fmt = new Intl.NumberFormat('en-US');
   const fmtPct = new Intl.NumberFormat('en-US',{style:'percent',maximumFractionDigits:4});
 
-  function getVIP(){ return parseFloat(document.querySelector('input[name="vip"]:checked').value); }
+  function getVIP(){ 
+    const baseVIP = parseFloat(document.querySelector('input[name="vip"]:checked').value);
+    const customMultiplier = parseFloat($('#customMultiplier').value || 1);
+    return baseVIP * customMultiplier;
+  }
 
   function getBonus(){
     const sel = $('#bonusRoll');
@@ -300,6 +305,7 @@ Last Updated: 8/14/2025
   $$('.basic, .special').forEach(el=> el.addEventListener('change', compute));
   $('#customBasic').addEventListener('input', compute);
   $('#customSpecial').addEventListener('input', compute);
+  $('#customMultiplier').addEventListener('input', compute);
   $('#baseR').addEventListener('input', compute);
   $('#rolls').addEventListener('input', compute);
 
