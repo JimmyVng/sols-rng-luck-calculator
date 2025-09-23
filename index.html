@@ -49,10 +49,10 @@ Last Updated: 8/14/2025
 <body>
   <div class="wrap">
     <div class="header">
-	    <h1>Sol's RNG - Luck & Aura Probability Calculator <span class="badge">Aug 2025</span></h1>
+	    <h1>Sol's RNG - Luck & Aura Probability Calculator <span class="badge">Sep 2025</span></h1>
 		<div class="subtitle">Yelveto's (@FLAMEJACKER2) Luck Calculator</div>
 	    <div class="subtitle">Implements the wiki's current luck formula: <span class="mono">TotalLuck = ((1 + Basic) × Bonus + Special) × VIP</span></div>
-		<div class="subtitle">If you do not see a buff, you can add custom buffs near the bottom.</div>
+		<div class="subtitle">If you do not see a buff, you can add custom buffs at the bottom.</div>
 		<div class="subtitle">Luck ≠ Guaranteed</div>
     </div>
 
@@ -103,6 +103,7 @@ Last Updated: 8/14/2025
 			<option value="7">Starshaper (+700%)</option>
 			<option value="8">Pump Punch (+800%)</option>
 			<option value="8.5">Neuralyzer (+850%)</option>
+      <option value="12">Genesis Drive (+1200%)</option>
 		  </select>
 		  <span class="hint">These add to Basic luck.</span>
 		</div>
@@ -132,6 +133,7 @@ Last Updated: 8/14/2025
           <label><input type="checkbox" class="basic" value="-0.5"> Lord of the Sea (-50%)</label>
           <label><input type="checkbox" class="basic" value="3"> Lord of the Hell (+300%)</label>
           <label><input type="checkbox" class="basic" value="1"> Warrior (+100%)</label>
+          <label><input type="checkbox" class="basic" value="1"> Raid Potion Buff (+100%)</label>
           <label><input type="checkbox" class="basic" value="1.2"> Torchbearer's Blessing (+120%)</label>
         </div>
 
@@ -175,6 +177,8 @@ Last Updated: 8/14/2025
           <label><input type="checkbox" class="special" value="50000"> Wishing Star (+50,000)</label>
           <label><input type="checkbox" class="special" value="300000"> Shattered Heart (+300,000)</label>
           <label><input type="checkbox" class="special" value="5000"> First Blessing (+5,000)</label>
+          <label><input type="checkbox" class="special" value="10000"> Potion of Dune (+10,000)</label>
+          <label><input type="checkbox" class="special" value="10000"> Popping Potion (+10,000)</label>
         </div>
 
         <details style="margin-top:8px"><summary>Server/other situational effects</summary>
