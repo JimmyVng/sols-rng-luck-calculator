@@ -59,7 +59,7 @@ Last Updated: 8/14/2025
     <div class="grid" id="app">
       <div class="card span-8">
         <h3 style="margin:0 0 10px">1) Buffs & Gear</h3>
-        
+
         <div class="row" style="margin-bottom:8px">
           <span class="k">VIP:</span>
           <label><input type="radio" name="vip" value="1" checked>None</label>
@@ -69,11 +69,12 @@ Last Updated: 8/14/2025
 
         <div class="row" style="margin-bottom:8px">
           <span class="k">Dave's Hope:</span>
-          <label><input type="radio" name="vip" value="1.2">Dave's Hope I (x1.2)</label>
-          <label><input type="radio" name="vip" value="1.4">Dave's Hope II (x1.4)</label>
-          <label><input type="radio" name="vip" value="1.6">Dave's Hope III (x1.6)</label>
-          <label><input type="radio" name="vip" value="1.8">Dave's Hope IV (x1.8)</label>
-          <label><input type="radio" name="vip" value="2.0">Dave's Hope V (x2)</label>
+          <label><input type="radio" name="DvHp" value="0" checked>None</label>
+          <label><input type="radio" name="DvHp" value="1.2">Dave's Hope I (x1.2)</label>
+          <label><input type="radio" name="DvHp" value="1.4">Dave's Hope II (x1.4)</label>
+          <label><input type="radio" name="DvHp" value="1.6">Dave's Hope III (x1.6)</label>
+          <label><input type="radio" name="DvHp" value="1.8">Dave's Hope IV (x1.8)</label>
+          <label><input type="radio" name="DvHp" value="2.0">Dave's Hope V (x2)</label>
         </div>
 
 		<div class="row" style="margin-bottom:8px">
@@ -262,8 +263,9 @@ Last Updated: 8/14/2025
 
   function getVIP(){ 
     const baseVIP = parseFloat(document.querySelector('input[name="vip"]:checked').value);
+    const dvhp = parseFloat(document.querySelector('input[name="DvHp"]:checked').value);
     const customMultiplier = parseFloat($('#customMultiplier').value || 1);
-    return baseVIP * customMultiplier;
+    return baseVIP * dvhp * customMultiplier;
   }
 
   function getBonus(){
