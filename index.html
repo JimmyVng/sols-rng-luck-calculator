@@ -321,6 +321,7 @@ Last Updated: 8/14/2025
   ['vip','bonusRoll','rightGear'].forEach(name=>{
     (name==='vip'?$$(`input[name="vip"]`):[$('#'+name)]).forEach(el=> el.addEventListener('change', compute));
   });
+  $$(`input[name="DvHp"]`).forEach(el=> el.addEventListener('change', compute));
   $$('.basic, .special').forEach(el=> el.addEventListener('change', compute));
   $('#customBasic').addEventListener('input', compute);
   $('#customSpecial').addEventListener('input', compute);
