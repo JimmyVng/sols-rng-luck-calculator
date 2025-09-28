@@ -318,8 +318,8 @@ Last Updated: 8/14/2025
   //Hook up UI
   $('#calc').addEventListener('click', compute);
   $('#preset').addEventListener('change', e=>{ if(e.target.value){ $('#baseR').value = e.target.value; compute(); }});
-  ['vip','bonusRoll','rightGear'].forEach(name=>{
-    (name==='vip'?$$(`input[name="vip"]`):[$('#'+name)]).forEach(el=> el.addEventListener('change', compute));
+  ['vip','DvHp','bonusRoll','rightGear'].forEach(name=>{
+    (['vip','DvHp'].includes(name)?$$(`input[name="${name}"]`):[$('#'+name)]).forEach(el=> el.addEventListener('change', compute));
   });
   $$(`input[name="DvHp"]`).forEach(el=> el.addEventListener('change', compute));
   $$('.basic, .special').forEach(el=> el.addEventListener('change', compute));
