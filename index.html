@@ -1,4 +1,4 @@
-<!-- Yelveto's (@FLAMEJACKER2) Sol RNG Calculator AUG 2025
+<!-- Yelveto's (@FLAMEJACKER2) Sol RNG Calculator FEB 2026
  
 Github: https://github.com/JimmyVng
 
@@ -9,7 +9,7 @@ SOL's RNG (Roblox)
 
 All information and calculations were gathered through the Sol's RNG Wiki (https://sol-rng.fandom.com/wiki/Sol%27s_RNG_Wiki)
 
-Last Updated: 8/14/2025
+Last Updated: 2/26/2026
 
 -->
 
@@ -18,7 +18,7 @@ Last Updated: 8/14/2025
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sol's RNG - Luck & Aura Probability Calculator (Aug 2025)</title>
+  <title>Sol's RNG - Luck & Aura Probability Calculator (Feb 2026)</title>
   <style>
     :root{--bg:#0b0d10;--panel:#11151a;--panel2:#0e1217;--text:#e6eef7;--muted:#9fb0c3;--acc:#79c0ff;--good:#a7f3d0;--warn:#fde68a;--bad:#fca5a5;--chip:#1a222b}
     *{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#0a0d12,#0b0d10);color:var(--text);font:14px/1.5 system-ui,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
@@ -49,9 +49,9 @@ Last Updated: 8/14/2025
 <body>
   <div class="wrap">
     <div class="header">
-	    <h1>Sol's RNG - Luck & Aura Probability Calculator <span class="badge">Sep 2025</span></h1>
+	    <h1>Sol's RNG - Luck & Aura Probability Calculator <span class="badge">Feb 2026</span></h1>
 		<div class="subtitle">Yelveto's (@FLAMEJACKER2) Luck Calculator</div>
-	    <div class="subtitle">Implements the wiki's current luck formula: <span class="mono">TotalLuck = ((1 + Basic) × Bonus + Special) × VIP</span></div>
+	    <div class="subtitle">Implements the wiki's current luck formula: <span class="mono">TotalLuck = ((1 + Basic) x Bonus + Special) x VIP</span></div>
 		<div class="subtitle">If you do not see a buff, you can add custom buffs at the bottom.</div>
 		<div class="subtitle">Luck ≠ Guaranteed</div>
     </div>
@@ -81,14 +81,13 @@ Last Updated: 8/14/2025
 		  <span class="k">Left-hand gear (Bonus Roll):</span>
 		  <select id="bonusRoll">
 			<option value="1" data-basic="0">None</option>
-			<option value="1.3" data-basic="0">Flesh Device ×1.3 (Bonus)</option>
-			<option value="2.5" data-basic="0">Darkshader ×2.5 (Bonus)</option>
-			<option value="3" data-basic="0">Blessed Tide Gauntlet ×3 (Bonus)</option>
-			<option value="4" data-basic="0">X-Mas Champion ×4 (Bonus)</option>
-			<option value="2.5" data-basic="0">Darkshader ×2.5 (Bonus)</option>
-			<option value="6" data-basic="0">Gravitational Device ×6 (Bonus)</option>
-			<option value="6" data-basic="0">Present Giver ×6 (Bonus)</option>
-			<option value="1" data-basic="5">Polar Light Core Device (+500% Basic)</option>
+			<option value="1.3" data-basic="0">Flesh Device x1.3 (Bonus)</option>
+			<option value="2.5" data-basic="0">Darkshader x2.5 (Bonus)</option>
+			<option value="3" data-basic="0">Blessed Tide Gauntlet x3 (Bonus)</option>
+			<option value="4" data-basic="0">X-Mas Champion x4 (Bonus)</option>
+			<option value="6" data-basic="0">Gravitational Device x6 (Bonus)</option>
+			<option value="6" data-basic="0">Present Giver x6 (Bonus)</option>
+			<option value="1" data-basic="5">Pole Light Core Device (+500% Basic)</option>
 		  </select>
 		  <span class="hint">Bonus only multiplies <em>Basic</em> luck, not Special. Put None for non-bonus rolls.</span>
 		</div>
@@ -98,23 +97,28 @@ Last Updated: 8/14/2025
 		  <select id="rightGear">
 			<option value="0">None</option>
 			<option value="0.25">Luck Glove (+25%)</option>
-			<option value="0.5">Solar Device (+50%)</option>
-			<option value="0.5">Eclipse Device (+50%)</option>
-			<option value="0.5">Tide Gauntlet (+50%)</option>
+			<option value="0.40">Desire Glove (+40%)</option>
+			<option value="0.50">Solar Device (+50%)</option>
+			<option value="0.50">Shining Star (+50%, base)</option>
+			<option value="0.50">Eclipse Device (+50%)</option>
+			<option value="0.50">Tide Gauntlet (+50%)</option>
 			<option value="0.77">Jackpot Gauntlet (+77%)</option>
 			<option value="1.0">Exo Gauntlet (+100%)</option>
 			<option value="1.15">Windstorm Device (+115%)</option>
-			<option value="1.5">Subzero Device (+150%)</option>
-			<option value="2.5">Galactic Device (+250%)</option>
-			<option value="2.9">Volcanic Device (+290%)</option>
-			<option value="3">Snow Rider (+300%)</option>
-			<option value="3.4">Exoflex Device (+340%)</option>
+			<option value="1.50">Frozen Gauntlet (+150%, -25% Roll Speed)</option>
+			<option value="1.50">Subzero Device (+150%)</option>
+			<option value="2.50">Galactic Device (+250%)</option>
+			<option value="2.90">Volcanic Device (+290%)</option>
+			<option value="3.00">Snow Rider (+300%)</option>
+			<option value="3.40">Exoflex Device (+340%)</option>
 			<option value="3.95">Hologrammer (+395%)</option>
 			<option value="4.55">Ragnaröker (+455%)</option>
-			<option value="7">Starshaper (+700%)</option>
-			<option value="8">Pump Punch (+800%)</option>
-			<option value="8.5">Neuralyzer (+850%)</option>
-      <option value="12">Genesis Drive (+1200%)</option>
+			<option value="5.00">Ragnaröker w/ Windy/Rainy/Hell (+500%)</option>
+			<option value="7.00">Starshaper (+700%)</option>
+			<option value="8.00">Pump Punch (+800%)</option>
+			<option value="8.50">Neuralyzer (+850%)</option>
+			<option value="12.00">Genesis Drive (+1200%)</option>
+			<option value="15.00">Heavenly Device (+1500%)</option>
 		  </select>
 		  <span class="hint">These add to Basic luck.</span>
 		</div>
@@ -151,6 +155,21 @@ Last Updated: 8/14/2025
           <label><input type="checkbox" class="basic" value="1.2"> Torchbearer's Blessing (+120%)</label>
         </div>
 
+        <details style="margin-top:8px"><summary>Pocket gear (Talismans &amp; conditional buffs)</summary>
+          <div class="row" style="margin-top:8px">
+            <label><input type="checkbox" class="basic" value="1.0"> Sunstone Talisman: Daytime (+100%)</label>
+            <label><input type="checkbox" class="basic" value="1.0"> Moonstone Talisman: Nighttime (+100%)</label>
+            <label><input type="checkbox" class="basic" value="1.25"> Day and Night Talisman (+125%)</label>
+            <label><input type="checkbox" class="basic" value="0.2"> Overtime Talisman: base (+20%)</label>
+            <label><input type="checkbox" class="basic" value="2.0"> Overtime Talisman: max (+200%, after 90 min)</label>
+            <label><input type="checkbox" class="basic" value="4.0"> Soul Collector's Talisman: max (+400%)</label>
+            <label><input type="checkbox" class="basic" value="7.5"> Soul Master's Talisman: max (+750% total)</label>
+            <label><input type="checkbox" class="basic" value="2.0"> Shining Star: Starfall bonus (+200%)</label>
+            <label><input type="checkbox" class="basic" value="0.9"> Aqua Device: Rainy bonus (+90% Roll Speed only, listed for completeness)</label>
+          </div>
+          <div class="hint" style="margin-top:4px">Talisman values are conditional, only check the one that applies to your current situation.</div>
+        </details>
+
         <details style="margin-top:8px"><summary>Biome resonance micro-buffs</summary>
           <div class="row" style="margin-top:8px">
             <label><input type="checkbox" class="basic" value="0.02"> Resonance: Snowy (+2%)</label>
@@ -180,7 +199,7 @@ Last Updated: 8/14/2025
           </div>
         </details>
 
-        <div class="row" style="margin:12px 0 6px"><span class="k">Special luck effects</span> <span class="hint">(Added outside Bonus, then × VIP)</span></div>
+        <div class="row" style="margin:12px 0 6px"><span class="k">Special luck effects</span> <span class="hint">(Added outside Bonus, then x VIP)</span></div>
         <div class="row">
           <label><input type="checkbox" class="special" value="50000"> Bound Potion (+50,000)</label>
           <label><input type="checkbox" class="special" value="15000"> Heavenly I (+15,000)</label>
@@ -203,7 +222,7 @@ Last Updated: 8/14/2025
             <label><input type="checkbox" class="basic" value="0.05"> Friend Luck+ (+5% per friend)</label>
             <label>Custom Basic +<input type="number" id="customBasic" value="0" min="0" step="0.01" class="mono" style="width:90px"> (as a decimal)</label>
             <label>Custom Special +<input type="number" id="customSpecial" value="0" min="0" step="100" class="mono" style="width:110px"> (flat)</label>
-            <label>Custom Multiplier ×<input type="number" id="customMultiplier" value="1" min="1" step="0.1" class="mono" style="width:90px"> (VIP-style)</label>
+            <label>Custom Multiplier x<input type="number" id="customMultiplier" value="1" min="1" step="0.1" class="mono" style="width:90px"> (VIP-style)</label>
           </div>
         </details>
       </div>
@@ -244,12 +263,12 @@ Last Updated: 8/14/2025
       <div class="card span-12">
         <h3 style="margin:0 0 8px">What counts as <em>Basic</em> vs <em>Special</em> luck?</h3>
         <ul style="margin:0 0 8px 18px;line-height:1.7">
-          <li><strong>Basic</strong> (additive percentages): gear % (right-hand), Lucky/Fortune potions, Lucky Penny, strange potions' <em>luck%</em>, Stella candles, Tip's Blessing, Basic Blessing, area tools (Portable Device, Incense), tiny Resonance boosts, many event/server buffs.</li>
-          <li><strong>Bonus Roll</strong> (multiplier): from left-hand gear like Gravitational (×6), Blessed Tide (×3), or Flesh (×2). <em>Only multiplies Basic luck.</em></li>
+          <li><strong>Basic</strong> (additive percentages): gear % (right-hand), Lucky/Fortune potions, Lucky Penny, strange potions' <em>luck%</em>, Stella candles, Tip's Blessing, Basic Blessing, area tools (Portable Device, Incense), tiny Resonance boosts, many event/server buffs, Talismans.</li>
+          <li><strong>Bonus Roll</strong> (multiplier): from left-hand gear like Gravitational (x6), Blessed Tide (x3), or Flesh (x1.3). <em>Only multiplies Basic luck.</em></li>
           <li><strong>Special</strong> (flat luck): Bound (+50k), Heavenly (+15k/+150k), Godlike (+400k), Oblivion (+600k), Pump King's Blood (+700k). Added outside Bonus, then multiplied by VIP.</li>
-          <li><strong>VIP</strong>: multiplies the final result (VIP ×1.2, VIP+ ×1.3).</li>
+          <li><strong>VIP</strong>: multiplies the final result (VIP x1.2, VIP+ x1.3).</li>
         </ul>
-        <div class="hint">Values are from the Sol's RNG wiki as of Aug 2025. When in doubt, use the custom fields to tweak.</div>
+        <div class="hint">Values are from the Sol's RNG wiki as of Feb 2026. When in doubt, use the custom fields to tweak.</div>
       </div>
     </div>
   </div>
@@ -281,17 +300,17 @@ Last Updated: 8/14/2025
   function sumBasic(){
     let s = 0;
     s += parseFloat($('#rightGear').value);
-    s += getLeftBasic(); // add Polar Light Core's Basic bonus if selected
+    s += getLeftBasic();
     $$('.basic:checked').forEach(el=> s += parseFloat(el.value));
     s += parseFloat($('#customBasic').value||0);
-    return s; //as decimal, e.g. 2.5 = +250%
+    return s;
   }
 
   function sumSpecial(){
     let s = 0;
     $$('.special:checked').forEach(el=> s += parseFloat(el.value));
     s += parseFloat($('#customSpecial').value||0);
-    return s; //flat numbers
+    return s;
   }
 
   function compute(){
@@ -329,7 +348,6 @@ Last Updated: 8/14/2025
   $('#baseR').addEventListener('input', compute);
   $('#rolls').addEventListener('input', compute);
 
-  //initial calc
   compute();
   </script>
 </body>
