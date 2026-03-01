@@ -9,7 +9,7 @@ SOL's RNG (Roblox)
 
 All information and calculations were gathered through the Sol's RNG Wiki (https://sol-rng.fandom.com/wiki/Sol%27s_RNG_Wiki)
 
-Last Updated: 2/26/2026
+Last Updated: 2/28/2026
 
 -->
 
@@ -49,9 +49,9 @@ Last Updated: 2/26/2026
 <body>
   <div class="wrap">
     <div class="header">
-	    <h1>Sol's RNG - Luck & Aura Probability Calculator <span class="badge">Feb 2026</span></h1>
+	    <h1>Sol's RNG - Luck & Aura Probability Calculator <span class="badge">Feb 28, 2026</span></h1>
 		<div class="subtitle">Yelveto's (@FLAMEJACKER2) Luck Calculator</div>
-	    <div class="subtitle">Implements the wiki's current luck formula: <span class="mono">TotalLuck = ((1 + Basic) x Bonus + Special) x VIP</span></div>
+	    <div class="subtitle">Implements the wiki's current luck formula: <span class="mono">TotalLuck = ((1 + Basic) x BasicMultiply x Bonus + Special) x VIP</span></div>
 		<div class="subtitle">If you do not see a buff, you can add custom buffs at the bottom.</div>
 		<div class="subtitle">Luck ≠ Guaranteed</div>
     </div>
@@ -88,6 +88,8 @@ Last Updated: 2/26/2026
 			<option value="6" data-basic="0">Gravitational Device x6 (Bonus)</option>
 			<option value="6" data-basic="0">Present Giver x6 (Bonus)</option>
 			<option value="1" data-basic="5">Pole Light Core Device (+500% Basic)</option>
+      <option value="1" data-basic="0" data-basicmult="1.35">Ominious Coffin (1.35x Basic)</option>
+      <option value="1" data-basic="0" data-basicmult="100">Unfathomable Ruins (100x Basic)</option>
 		  </select>
 		  <span class="hint">Bonus only multiplies <em>Basic</em> luck, not Special. Put None for non-bonus rolls.</span>
 		</div>
@@ -103,10 +105,11 @@ Last Updated: 2/26/2026
 			<option value="0.50">Eclipse Device (+50%)</option>
 			<option value="0.50">Tide Gauntlet (+50%)</option>
 			<option value="0.77">Jackpot Gauntlet (+77%)</option>
-			<option value="1.0">Exo Gauntlet (+100%)</option>
+			<option value="1.00">Exo Gauntlet (+100%)</option>
 			<option value="1.15">Windstorm Device (+115%)</option>
 			<option value="1.50">Frozen Gauntlet (+150%, -25% Roll Speed)</option>
 			<option value="1.50">Subzero Device (+150%)</option>
+      <option value="2.40">Vampire Hunter (+240%) (Reducded Rarity for auras not calculated (-20% rarity))</option>
 			<option value="2.50">Galactic Device (+250%)</option>
 			<option value="2.90">Volcanic Device (+290%)</option>
 			<option value="3.00">Snow Rider (+300%)</option>
@@ -175,11 +178,12 @@ Last Updated: 2/26/2026
             <label><input type="checkbox" class="basic" value="0.02"> Resonance: Snowy (+2%)</label>
             <label><input type="checkbox" class="basic" value="0.02"> Resonance: Windy (+2%)</label>
             <label><input type="checkbox" class="basic" value="0.02"> Resonance: Rainy (+2%)</label>
-			<label><input type="checkbox" class="basic" value="0.03"> Resonance: Sand Storm (+3%)</label>
+            <label><input type="checkbox" class="basic" value="0.03"> Resonance: Sand Storm (+3%)</label>
             <label><input type="checkbox" class="basic" value="0.05"> Resonance: Hell (+5%)</label>
             <label><input type="checkbox" class="basic" value="0.05"> Resonance: Starfall (+5%)</label>
-			<label><input type="checkbox" class="basic" value="0.10"> Resonance: Corruption (+10%)</label>
-			<label><input type="checkbox" class="basic" value="0.10"> Resonance: Null (+10%)</label>
+            <label><input type="checkbox" class="basic" value="0.10"> Resonance: Corruption (+10%)</label>
+            <label><input type="checkbox" class="basic" value="0.10"> Resonance: Null (+10%)</label>
+            <label><input type="checkbox" class="basic" value="0.05"> Resonance: Heaven (+5%)</label>
           </div>
         </details>
 
@@ -196,6 +200,7 @@ Last Updated: 2/26/2026
             <label><input type="checkbox" class="basic" value="0.2"> Expert! (+20%)</label>
             <label><input type="checkbox" class="basic" value="0.3"> Master! (+30%)</label>
             <label><input type="checkbox" class="basic" value="0.4"> Grandmaster! (+40%)</label>
+            <label><input type="checkbox" class="basic" value="0.5"> Supreme! (+50%)</label>
           </div>
         </details>
 
@@ -210,8 +215,9 @@ Last Updated: 2/26/2026
           <label><input type="checkbox" class="special" value="50000"> Wishing Star (+50,000)</label>
           <label><input type="checkbox" class="special" value="300000"> Shattered Heart (+300,000)</label>
           <label><input type="checkbox" class="special" value="5000"> First Blessing (+5,000)</label>
-          <label><input type="checkbox" class="special" value="10000"> Potion of Dune (+10,000)</label>
           <label><input type="checkbox" class="special" value="10000"> Popping Potion (+10,000)</label>
+          <label><input type="checkbox" class="special" value="10000"> Potion of Dune (+10,000)</label>
+          <label><input type="checkbox" class="special" value="11000"> Red Moon Potion (+11,000)</label>
         </div>
 
         <details style="margin-top:8px"><summary>Server/other situational effects</summary>
@@ -223,6 +229,7 @@ Last Updated: 2/26/2026
             <label>Custom Basic +<input type="number" id="customBasic" value="0" min="0" step="0.01" class="mono" style="width:90px"> (as a decimal)</label>
             <label>Custom Special +<input type="number" id="customSpecial" value="0" min="0" step="100" class="mono" style="width:110px"> (flat)</label>
             <label>Custom Multiplier x<input type="number" id="customMultiplier" value="1" min="1" step="0.1" class="mono" style="width:90px"> (VIP-style)</label>
+            <label>Custom Basic Luck Multiplier x<input type="number" id="customBasicMult" value="1" min="1" step="0.1" class="mono" style="width:90px"> </label>
           </div>
         </details>
       </div>
@@ -232,7 +239,7 @@ Last Updated: 2/26/2026
         <div class="row" style="margin-bottom:8px">
           <span class="k">Preset:</span>
           <select id="preset">
-            <option value="">– choose –</option>
+            <option value="">Choose:</option>
             <option value="6000000">Twilight (1 in 6,000,000)</option>
             <option value="600000">Twilight (Night native 1 in 600,000)</option>
             <option value="99999">Exotic (1 in 99,999)</option>
@@ -297,6 +304,13 @@ Last Updated: 2/26/2026
     return parseFloat(sel.options[sel.selectedIndex].dataset.basic || 0);
   }
 
+  function getBasicMult(){
+    const sel = $('#bonusRoll');
+    const fromGear = parseFloat(sel.options[sel.selectedIndex].dataset.basicmult || 1);
+    const fromInput = parseFloat($('#customBasicMult').value || 1);
+    return fromGear * fromInput;
+  }
+
   function sumBasic(){
     let s = 0;
     s += parseFloat($('#rightGear').value);
@@ -318,7 +332,8 @@ Last Updated: 2/26/2026
     const Bonus = getBonus();
     const Basic = sumBasic();
     const Special = sumSpecial();
-    const totalLuck = ((1 + Basic) * Bonus + Special) * VIP;
+    const BasicMult = getBasicMult();
+    const totalLuck = ((1 + Basic) * BasicMult * Bonus + Special) * VIP;
 
     const base = Math.max(1, parseFloat($('#baseR').value||1));
     const eff = base / Math.max(1, totalLuck);
@@ -345,6 +360,7 @@ Last Updated: 2/26/2026
   $('#customBasic').addEventListener('input', compute);
   $('#customSpecial').addEventListener('input', compute);
   $('#customMultiplier').addEventListener('input', compute);
+  $('#customBasicMult').addEventListener('input', compute);
   $('#baseR').addEventListener('input', compute);
   $('#rolls').addEventListener('input', compute);
 
